@@ -14,6 +14,10 @@ defmodule ChatterWeb.Endpoint do
     websocket: true,
     longpoll: false
 
+  if Application.get_env(:chatter, :sql_sandbox) do
+    plug Phoenix.Ecto.SQL.Sandbox
+  end
+
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
