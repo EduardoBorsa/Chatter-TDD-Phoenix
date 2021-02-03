@@ -1,8 +1,6 @@
 defmodule Chatter.ChatTest do
   use Chatter.DataCase, async: true
 
-  import Chatter.Factory
-
   alias Chatter.Chat
 
   describe "all_rooms/0" do
@@ -13,6 +11,41 @@ defmodule Chatter.ChatTest do
 
       assert room1 in rooms
       assert room2 in rooms
+    end
+  end
+
+  describe "new_chat_room/0" do
+    test "prepares a changeset for new chat room" do
+      assert %Ecto.Changeset{} = Chat.new_chat_room()
+    end
+  end
+
+  describe "create_chat_room/1" do
+    test "creates a room with valid params" do
+      params = string_params_for(:chat_room)
+      {:ok, room} = Chat.create_chat_room(params)
+
+      assert %Chat.Room{} = room
+      assert room.name == params["name"]
+    end
+
+    test "returns error if tuple params are invalid" do
+      insert(:chat_room, name: "elixir")
+      params = params_for(:chat_room, name: "elixir")
+      {:error, changeset} = Chat.create_chat_room(params)
+
+      refute changeset.valid?
+      assert "has already been taken" in errors_on(changeset).name
+    end
+  end
+
+  describe "find_chat/1" do
+    test "retrives a chat room by id" do
+      room = insert(:chat_room)
+
+      found_room = Chat.find_room(room.id)
+
+      assert found_room == room
     end
   end
 end
