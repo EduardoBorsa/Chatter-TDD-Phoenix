@@ -43,6 +43,7 @@ defmodule Chatter.MixProject do
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
+      {:doorman, "~> 0.6.2"},
       {:wallaby, "~> 0.28.0", runtime: false, only: :test},
       {:ex_machina, "~> 2.3", only: :test},
       {:jason, "~> 1.0"},

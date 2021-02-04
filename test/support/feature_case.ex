@@ -7,6 +7,7 @@ defmodule ChatterWeb.FeatureCase do
       alias ChatterWeb.Router.Helpers, as: Routes
 
       import Chatter.Factory
+      import ChatterWeb.FeatureHelpers
 
       # The default endpoint for testing
       @endpoint ChatterWeb.Endpoint
