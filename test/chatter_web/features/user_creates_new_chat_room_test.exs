@@ -1,4 +1,4 @@
-defmodule ChatterWeb.Features.UserCreatesNewChatRoomTest do
+defmodule ChatterWeb.UserCreatesNewChatRoomTest do
   use ChatterWeb.FeatureCase, async: true
 
   test "user creates a new chat room successfully", %{session: session} do

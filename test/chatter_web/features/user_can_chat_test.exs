@@ -1,4 +1,4 @@
-defmodule ChatterWeb.Features.UserCanChatTest do
+defmodule ChatterWeb.UserCanChatTest do
   use ChatterWeb.FeatureCase, async: true
 
   test "user can chat with others successfully", %{metadata: metadata} do
