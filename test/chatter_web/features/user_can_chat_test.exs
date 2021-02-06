@@ -1,5 +1,5 @@
 defmodule ChatterWeb.UserCanChatTest do
-  use ChatterWeb.FeatureCase, async: true
+  use ChatterWeb.FeatureCase, async: false
 
   test "user can chat with others successfully", %{metadata: metadata} do
     room = insert(:chat_room)
@@ -29,6 +29,28 @@ defmodule ChatterWeb.UserCanChatTest do
 
     session1
     |> assert_has(message("Hi, welcome to #{room.name}", author: user2))
+  end
+
+  test "new user can see previous messages in chat room", %{metadata: metadata} do
+    room = insert(:chat_room)
+    user1 = insert(:user)
+    user2 = insert(:user)
+
+    session1 =
+      metadata
+      |> new_session()
+      |> visit(rooms_index())
+      |> sign_in(as: user1)
+      |> join_room(room.name)
+      |> add_message("Welcome future user")
+
+    session2 =
+      metadata
+      |> new_session()
+      |> visit(rooms_index())
+      |> sign_in(as: user2)
+      |> join_room(room.name)
+      |> assert_has(message("Welcome future user", author: user1))
   end
 
   defp new_session(metadata) do
